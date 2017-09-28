@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"D:\JARPack\SSMJAR\dtd\mybatis-3-config.dtd">
+<configuration>
+<!-- 引入jdbc.properties配置文件，完成mybatis与数据库的连接 -->
+<properties resource="jdbc.properties"></properties>
+<!-- <typeAliases>
+	<typeAlias alias="User" type="pojo.User"/>
+第二种简便方法直接将包都导入，其下的pojo就都映射为别名了
+	<package name="pojo"/>
+</typeAliases> -->
+<settings>
+	<setting name="logImpl" value="log4j2"/>
+</settings>
+<environments default="development">
+	<environment id="development">
+		<!-- 配置事务管理 -->
+		<transactionManager type="JDBC"></transactionManager>
+		<!-- POOLED是Mybatis的数据源 JNDI基于tomcat的数据源-->
+		<dataSource type="POOLED">
+			<property name="driver" value="${driver}"/>
+			<property name="url" value="${url}"/>
+			<property name="username" value="${user}"/>
+			<property name="password" value="${password}"/>
+		</dataSource>
+	</environment>
+</environments>
+<mappers>	
+	<mapper resource="dao/UserMapper.xml"/>
+	<mapper resource="dao/RoleMapper.xml"/>
+</mappers>
+</configuration>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.opensymphony.xwork2" level="DEBUG"/>
+<!--         <Logger name="java.sql.Statement" level="ERROR"/>
+        <Logger name="java.sql.Connection"  level="ERROR"/>
+        <Logger name="java.sql.PreparedStatement" level="ERROR"/>
+       	 -->
+        <Root level="DEBUG">
+            <AppenderRef ref="STDOUT"/>
+        </Root>
+        
+    </Loggers>
+    
+</Configuration>
