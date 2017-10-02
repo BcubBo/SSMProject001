@@ -8,8 +8,8 @@
 		select * from employee
 	</select>
 	<insert id="add" parameterType="com.bcubbo.pojo.Employee">
-		insert into employee (sn,name,gender) values(
+		insert into employee (sn,name,gender) values(#{sn}，#{name},#{gender})
 	</insert>
-
+	
 
 </Mapper>
