@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"D:\JARPack\mybatisJAR\dtd\mybatis-3-mapper.dtd">
+"D:\JARPack\SSMJAR\dtd\mybatis-3-mapper.dtd">
 <mapper namespace="dao.UserMapper">
 	<select id="count" resultType="int">
 		select count(1) from user
@@ -11,7 +11,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			values(#{userCode},#{userName},#{userPassword})
 	</insert>
 	<update id="update" parameterType="pojo.User">
-		update user set userCode=#{userCode},userName=#{userName},userPassword=#{userPassword}
+		update user 
+		
+		<trim prefix="set" suffixOverrides=",">
+			<if test="userCode != null and userCode != '' ">
+				userCode=#{userCode},
+			</if>
+			<if test="userName != null and userName != '' ">
+				userName=#{userName},
+			</if>
+			<if test="userPassword != null and userPassword != '' ">
+				userPassword=#{userPassword}
+			</if>
+		</trim>
+<!-- 		<set>
+			<if test="userCode != null and userCode != '' ">
+				userCode=#{userCode},
+			</if>
+			<if test="userName != null and userName != '' ">
+				userName=#{userName},
+			</if>
+			<if test="userPassword != null and userPassword != '' ">
+				userPassword=#{userPassword}
+			</if>
+		</set> -->
+		
 		where id=#{id}
 	</update>
 	<delete id="delete" parameterType="pojo.User">
@@ -19,6 +43,79 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	<select id="getUserList" resultType="pojo.User">
 		select * from user
+	</select>
+	<!-- 使用ResultMap -->
+<!-- 	<resultMap type="pojo.User" id="userMap">
+		<result property="id" column="id"/>
+		<result property="userName" column="userName"/>
+		<result property="userCode" column="userCode"/>
+		<result property="roleName" column="roleName"/>
+	</resultMap>
+	
+	<select id="getUserListByRoleId" parameterType="pojo.Role" resultMap="userMap">
+		select u.*,r.roleName as roleName from user u,role r where u.roleId = r.id and u.roleId = #{id}
+	</select> -->
+	<!-- 使用RoleId获取用户列表使用association -->
+	<resultMap type="pojo.User" id="userMap">
+		<result property="id" column="id"/>
+		<result property="userCode" column="userCode"/>
+		<result property="userName" column="userName"/>
+		<result property="roleName" column="roleName"/>
+		<association property="role" javaType="pojo.Role">
+			<result property="id" column="r_id"/>
+			<result property="roleCode" column="roleCode"/>
+			<result property="roleName" column="roleName"/>
+		</association>
+	</resultMap>
+	<select id="getUserListByRoleId" parameterType="pojo.Role" resultMap="userMap">
+		select u.*,r.id as r_id ,r.roleName,r.roleCode from user u,role r where u.roleId=r.id and u.roleId=#{id}
+	</select>
+	<!-- collection使用 -->
+	<resultMap type="pojo.User" id="userMapAddress">
+		<id property="id" column="userId"/>
+		<result property="userName" column="userName"/>
+		<collection property="addressList" ofType="pojo.Address">
+			<id property="id" column="a_id"/>
+			<result property="postCode" column="postCode"/>
+			<result property="addressContent" column="addressContent"/>
+		</collection>
+	</resultMap>
+	<select id="getAddressListByUserId" parameterType="pojo.User" resultMap="userMapAddress">
+		select *,a.id as a_id from user u,address a where u.id=a.userId and u.id=#{id}
+	</select>
+	
+	<!-- ///////// -->
+	<resultMap id="userMap2" type="pojo.User">
+		<result property="userName" column="userName"/>
+		<result property="userCode" column="userCode"/>
+		<result property="roleName" column="roleName"/>
+	</resultMap>
+	<select id="searchUserList" parameterType="pojo.User" resultMap="userMap2">
+		select u.*,r.roleName from user u,role r 
+		where u.roleId = r.id
+		<if test="roleId != null and roleId != ''">
+			and r.id = #{roleId} 
+		</if>
+		<if test="userCode != null and userCode != '' ">
+			and u.userCode like CONCAT('%',#{userCode},'%')
+		</if>
+		<if test="userName != null  and userName != ''">
+			and u.userName like CONCAT('%',#{userName},'%')
+		</if>
+	</select>
+	<!-- 使用foreach -->
+	<resultMap id="userMap3" type="pojo.User">
+		<result property="id" column="id"/>
+		<result property="userCode" column="userCode"/>
+		<result property="userName" column="userName"/>
+		<result property="depName" column="depName"/>
+		<result property="depId" column="depId"/>
+	</resultMap>
+	<select id="getUserByDepId"  resultMap="userMap3">	
+		select * from user r ,department d where r.depId = d.id and depId in 
+		<foreach collection="array"  item="depIds" open="(" separator="," close=")" >
+			#{depIds}
+		</foreach>
 	</select>
 	
 </mapper>

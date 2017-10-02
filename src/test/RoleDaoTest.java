@@ -98,7 +98,7 @@ public class RoleDaoTest {
 	
 	
 	@Test
-	public void getRoleListTest() {
+	public void getRoleListTest2() {
 		List<Role> roleList = new ArrayList<Role>();
 		SqlSession sqlSession = null;
 		try {
@@ -106,7 +106,7 @@ public class RoleDaoTest {
 			role.setRoleCode("ADMIN1");
 			role.setRoleName("系统管理1");
 			sqlSession = MyBatisUtil.createSqlSession();
-			roleList = sqlSession.getMapper(RoleMapper.class).getRoleList();
+			roleList = sqlSession.getMapper(RoleMapper.class).getRoleList(role);
 			//sqlSession.selectList("dao.RoleMapper.getRoleList");
 			logger.debug("查询结束");
 			for(Role rol:roleList) {
@@ -116,7 +116,7 @@ public class RoleDaoTest {
 			sqlSession.commit();
 			logger.debug("提交完成");
 		} catch (Exception e) {
-			logger.debug("查询信息失败回滚");
+			logger.debug("添加角色失败回滚");
 			sqlSession.rollback();
 			e.printStackTrace();
 		}finally {
@@ -124,6 +124,37 @@ public class RoleDaoTest {
 			logger.debug("关闭会话");
 		}
 		
+		
+	}
+	
+	//
+	@Test
+	public void getRoleList() {
+		
+		SqlSession sqlSession = null;
+		try {
+			sqlSession = MyBatisUtil.createSqlSession();
+			Role role = new Role();
+			role.setRoleCode("A");
+			role.setRoleName("财");
+			List<Role> roleList = sqlSession.getMapper(RoleMapper.class).getRoleList(role);
+			sqlSession.commit();
+			logger.debug("提交成功");
+			for(Role r:roleList) {
+				logger.debug("身份代码:"+r.getRoleCode());
+				logger.debug("身份名称:"+r.getRoleName());
+			}
+			
+			
+			
+		}catch(Exception e) {
+			logger.debug("异常回滚");
+			sqlSession.rollback();
+			e.printStackTrace();
+		}finally {
+			logger.debug("关闭");
+			MyBatisUtil.closeSqlSession(sqlSession);
+		}
 		
 	}
 

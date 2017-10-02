@@ -13,6 +13,6 @@ public interface RoleMapper {
 	
 	public void delete(Role role);
 	
-	public List<Role> getRoleList();
+	public List<Role> getRoleList(Role role);
 
 }

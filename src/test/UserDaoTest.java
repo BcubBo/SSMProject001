@@ -23,7 +23,7 @@ public class UserDaoTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			MyBatisUtil.closeSqlSesion(sqlSession);
+			MyBatisUtil.closeSqlSession(sqlSession);
 			//关闭
 		}
 		
@@ -51,7 +51,7 @@ public class UserDaoTest {
 			sqlSession.rollback();
 		}finally {
 			
-			MyBatisUtil.closeSqlSesion(sqlSession);
+			MyBatisUtil.closeSqlSession(sqlSession);
 			logger.debug("添加成功关闭成功");
 			
 		
@@ -79,7 +79,7 @@ public class UserDaoTest {
 			sqlSession.rollback();
 		}finally {
 			logger.debug("update方法关闭成功");
-			MyBatisUtil.closeSqlSesion(sqlSession);
+			MyBatisUtil.closeSqlSession(sqlSession);
 		}
 	}
 	
@@ -100,7 +100,7 @@ public class UserDaoTest {
 			
 		}finally {
 			logger.debug("delete方法关闭成功");
-			MyBatisUtil.closeSqlSesion(sqlSession);
+			MyBatisUtil.closeSqlSession(sqlSession);
 		}
 	}
 	@Test
@@ -127,7 +127,7 @@ public class UserDaoTest {
 			e.printStackTrace();
 		}finally {
 			logger.debug("全查询方法关闭成功");
-			MyBatisUtil.closeSqlSesion(sqlSession);
+			MyBatisUtil.closeSqlSession(sqlSession);
 		}
 		
 		

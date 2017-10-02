@@ -3,9 +3,41 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"D:\JARPack\SSMJAR\dtd\mybatis-3-mapper.dtd">
 <mapper namespace="dao.RoleMapper">
-	<select id="getRoleList" resultType="pojo.Role">
-		select * from role
+	<select id="getRoleList" resultType="pojo.Role" parameterType="pojo.Role">
+		select * from role 
+		<where>
+			<choose>
+				<when test="roleCode != null and roleCode != '' ">
+					and roleCode  like CONCAT('%',#{roleCode},'%')
+				</when>
+				<when test="roleName != null and roleName != '' ">
+					and roleName like CONCAT('%',#{roleName},'%')
+				</when>
+				<otherwise>
+					1 = 1;
+				</otherwise>
+			</choose>
+			
+		</where>
+<!-- 		<trim prefix="where" prefixOverrides="and | or">
+			<if test="roleCode != null">
+				and roleCode like CONCAT('%',#{roleCode},'%')
+			</if>
+			<if test="roleName != null">
+				and roleName like CONCAT ('%',#{roleName},'%')
+			</if>
+		</trim> -->
+		
+<!-- 		<where>
+			<if test="roleCode != null">
+				and roleCode like CONCAT('%',#{roleCode},'%')
+			</if>
+			<if test="roleName != null">
+				and roleName like CONCAT ('%',#{roleName},'%')
+			</if>
+		</where> -->
 	</select>
+	
 	<insert id="add" parameterType="pojo.Role">
 		insert into role (roleCode,roleName) values(#{roleCode},#{roleName})
 	</insert>
