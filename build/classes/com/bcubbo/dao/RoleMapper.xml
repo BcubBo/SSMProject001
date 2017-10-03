@@ -3,7 +3,7 @@
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"D:\JARPack\SSMJAR\dtd\mybatis-3-mapper.dtd">
 <mapper namespace="com.bcubbo.dao.RoleMapper">
-	<select id="getRoleList" resultType="com.bcubbo.pojo.Role" parameterType="com.bcubbo.pojo.Role">
+	<select id="getRoleList" resultType="Role" parameterType="Role">
 		select * from role 
 		<where>
 			<choose>
@@ -38,13 +38,13 @@
 		</where> -->
 	</select>
 	
-	<insert id="add" parameterType="com.bcubbo.pojo.Role">
+	<insert id="add" parameterType="Role">
 		insert into role (roleCode,roleName) values(#{roleCode},#{roleName})
 	</insert>
-	<update id="update" parameterType="com.bcubbo.pojo.Role">
+	<update id="update" parameterType="Role">
 		update role set roleCode = #{roleCode},roleName = #{roleName} where id = #{id}
 	</update>
-	<delete id="delete" parameterType="com.bcubbo.pojo.Role">
+	<delete id="delete" parameterType="Role">
 		delete from role where id=#{id}
 	</delete>
 </mapper>

@@ -11,14 +11,10 @@ public class EmployeeDaoTest {
 	public void setUp() throws Exception {
 		
 	}
-
-	@Test
-	public void test() {
-		
-	}
 	
 	@Test
 	public void getEmployeeListTest() {
+		
 		
 	}
 

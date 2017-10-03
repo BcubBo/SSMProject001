@@ -10,6 +10,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 第二种简便方法直接将包都导入，其下的pojo就都映射为别名了
 	<package name="pojo"/>
 </typeAliases> -->
+<typeAliases>
+	<package name="com.bcubbo.pojo"/>
+</typeAliases>
 <settings>
 	<setting name="logImpl" value="log4j2"/>
 </settings>

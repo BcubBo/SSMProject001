@@ -61,20 +61,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="userCode" column="userCode"/>
 		<result property="userName" column="userName"/>
 		<result property="roleName" column="roleName"/>
-		<association property="role" javaType="pojo.Role">
+		<association property="role" javaType="com.bcubbo.pojo.Role">
 			<result property="id" column="r_id"/>
 			<result property="roleCode" column="roleCode"/>
 			<result property="roleName" column="roleName"/>
 		</association>
 	</resultMap>
-	<select id="getUserListByRoleId" parameterType="pojo.Role" resultMap="userMap">
+	<select id="getUserListByRoleId" parameterType="com.bcubbo.pojo.Role" resultMap="userMap">
 		select u.*,r.id as r_id ,r.roleName,r.roleCode from user u,role r where u.roleId=r.id and u.roleId=#{id}
 	</select>
 	<!-- collection使用 -->
 	<resultMap type="com.bcubbo.pojo.Role" id="userMapAddress">
 		<id property="id" column="userId"/>
 		<result property="userName" column="userName"/>
-		<collection property="addressList" ofType="pojo.Address">
+		<collection property="addressList" ofType="com.bcubbo.pojo.Address">
 			<id property="id" column="a_id"/>
 			<result property="postCode" column="postCode"/>
 			<result property="addressContent" column="addressContent"/>

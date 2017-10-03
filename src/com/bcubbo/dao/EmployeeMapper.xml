@@ -4,10 +4,10 @@
 	"D:\JARPack\SSMJAR\dtd\mybatis-3-mapper.dtd"
 >
 <<Mapper namespace="com.bcubbo.dao.EmployeeMapper">
-	<select id="getEmployeeList" resultType="com.bcubbo.pojo.Employee">
+	<select id="getEmployeeList" resultType="Employee">
 		select * from employee
 	</select>
-	<insert id="add" parameterType="com.bcubbo.pojo.Employee">
+	<insert id="add" parameterType="Employee">
 		insert into employee (sn,name,gender) values(#{sn}，#{name},#{gender})
 	</insert>
 	
