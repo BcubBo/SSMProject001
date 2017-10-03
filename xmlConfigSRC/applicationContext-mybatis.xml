@@ -16,32 +16,32 @@
 		 http://www.springframework.org/schema/tx 
 		 http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
  
-<!-- 配置文件properties读取配置 -->
-<context:property-placeholder location="classpath:jdbc.properties"/>
-<!-- 使用JNDI获取数据源使用dbcp连接池 -->
-<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" scope="singleton">
-		<property name="driverClassName" value="${driver}"/>
-		<property name="url" value="${url}"/>
-		<property name="username" value="${user}"/>
-		<property name="password" value="${password}"/>
-</bean>
-<!-- 配置事务 使用@Transactional/AOP的方式进行事务处理-->
-<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-	<property name="dataSource" ref="dataSource"/>
-</bean>
-<!-- 获取sqlSessionFactory配置mybatis的sqlSessionFactory -->
-<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-	<property name="dataSource" ref="dataSource"/>
-	<property name="configLocation" value="classpath:mybatis-config.xml"/>
-	<property name="mapperLocations" value="com/bcubbo/dao/*.xml"/>
-</bean>
-<!-- 配置sqlSessionTemplate 使用构造方法进行sqlSessionFactory的注入-->
-<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
-</bean>
-<!-- 将sqlSessionTemplate注入到测试类中 -->
- <bean id="employeeDaoTest" class="com.bcubbo.test.EmployeeDaoTest">
- 	<property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
- </bean>
+	<!-- 配置文件properties读取配置 -->
+	<context:property-placeholder location="classpath:jdbc.properties"/>
+	<!-- 使用JNDI获取数据源使用dbcp连接池 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" scope="singleton">
+			<property name="driverClassName" value="${driver}"/>
+			<property name="url" value="${url}"/>
+			<property name="username" value="${user}"/>
+			<property name="password" value="${password}"/>
+	</bean>
+	<!-- 配置事务 使用@Transactional/AOP的方式进行事务处理-->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	<!-- 获取sqlSessionFactory配置mybatis的sqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<property name="mapperLocations" value="com/bcubbo/dao/*.xml"/>
+	</bean>
+	<!-- 配置sqlSessionTemplate 使用构造方法进行sqlSessionFactory的注入-->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+	</bean>
+	<!-- 将sqlSessionTemplate注入到测试类中 -->
+	 <bean id="employeeDaoTest" class="com.bcubbo.test.EmployeeDaoTest">
+	 	<property name="sqlSessionTemplate" ref="sqlSessionTemplate"/>
+	 </bean>
  
  </beans>

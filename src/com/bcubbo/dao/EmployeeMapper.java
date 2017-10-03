@@ -7,6 +7,6 @@ import com.bcubbo.pojo.Employee;
 public interface EmployeeMapper {
 	
 	//获取员工列表
-	public List<Employee> getEmployeeList(Employee employee);
+	public List<Employee> getEmployeeList();
 
 }

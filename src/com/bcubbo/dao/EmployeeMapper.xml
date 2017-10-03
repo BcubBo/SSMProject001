@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE Mapper
+<!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"D:\JARPack\SSMJAR\dtd\mybatis-3-mapper.dtd"
 >
-<<Mapper namespace="com.bcubbo.dao.EmployeeMapper">
+<mapper namespace="com.bcubbo.dao.EmployeeMapper">
 	<select id="getEmployeeList" resultType="Employee">
 		select * from employee
 	</select>
 	<insert id="add" parameterType="Employee">
 		insert into employee (sn,name,gender) values(#{sn}，#{name},#{gender})
 	</insert>
-	
-
-</Mapper>
+</mapper>
