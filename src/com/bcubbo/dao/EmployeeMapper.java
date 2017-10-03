@@ -8,5 +8,6 @@ public interface EmployeeMapper {
 	
 	//获取员工列表
 	public List<Employee> getEmployeeList();
+	public int add(Employee employee);
 
 }

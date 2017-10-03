@@ -8,6 +8,6 @@
 		select * from employee
 	</select>
 	<insert id="add" parameterType="Employee">
-		insert into employee (sn,name,gender) values(#{sn}，#{name},#{gender})
+		insert into employee (sn,name,gender) values(#{sn},#{name},#{gender})
 	</insert>
 </mapper>

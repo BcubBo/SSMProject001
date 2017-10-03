@@ -1,11 +1,11 @@
 package com.bcubbo.test;
 
-import static org.junit.Assert.*;
 
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -13,6 +13,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.bcubbo.pojo.Employee;
+
 
 public class EmployeeDaoTest {
 	private SqlSessionTemplate sqlSessionTemplate;
@@ -36,12 +37,29 @@ public class EmployeeDaoTest {
 			
 			logger.debug("员工信息:"+em.getName());
 			logger.debug("员工代码:"+em.getId());
+			logger.debug("员工代号:"+em.getSn());
 			
 		}
 		logger.debug("**********查询结束**********");
 	}
 	
 	
+	@Test
+	public void addTest() {
+		
+		try {
+			Employee employee = new Employee();
+			employee.setName("cTest");
+			employee.setSn("1111");
+			employee.setGender("女");
+			int flag = test.sqlSessionTemplate.insert("com.bcubbo.dao.EmployeeMapper.add");
+			logger.debug("成功条数:>>>>>"+flag);
+			Assert.assertEquals(1, flag);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 	
